@@ -1,0 +1,34 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.etch-a-sketch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.etch-a-sketch__canvas {
+    display: flex;
+    flex-wrap: wrap;
+    height: 90vh;
+    aspect-ratio: 1 / 1;
+    border: 1px solid black;
+}
+
+.etch-a-sketch__pixel {
+    aspect-ratio: 1 / 1;
+}
+
+.etch-a-sketch__pixel:hover {
+    background-color: green;
+}
