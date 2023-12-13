@@ -1,6 +1,8 @@
 const RESOLUTION = 16;
 const DEFAULT_COLOR = "#000000";
+const resetButton = document.querySelector(".etch-a-sketch__reset-button");
 const canvas = document.querySelector(".etch-a-sketch__canvas");
+resetButton.addEventListener("click", resetGrid);
 canvas.addEventListener("mouseover", handleMouseEvents);
 canvas.addEventListener("mouseout", handleMouseEvents);
 canvas.addEventListener("mousedown", handleMouseEvents);
@@ -16,6 +18,16 @@ function createGrid(rows) {
     }
     canvas.innerHTML = "";
     canvas.appendChild(fragment);
+}
+
+function resetGrid() {
+    const rows = prompt("How many rows? (Between 16 and 100)", "16");
+    if (rows === null) return;
+    if (isNaN(rows) || rows < 16 || rows > 100) {
+        alert("Invalid input!");
+        return;
+    }
+    createGrid(rows);
 }
 
 function handleMouseEvents(e) {
