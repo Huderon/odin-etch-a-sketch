@@ -1,5 +1,5 @@
 const RESOLUTION = 16;
-const DEFAULT_COLOR = "#000000";
+const colourPicker = document.querySelector(".etch-a-sketch__colour-picker");
 const resetButton = document.querySelector(".etch-a-sketch__reset-button");
 const canvas = document.querySelector(".etch-a-sketch__canvas");
 resetButton.addEventListener("click", resetGrid);
@@ -32,26 +32,18 @@ function resetGrid() {
 
 function handleMouseEvents(e) {
     if (!e.target.classList.contains("etch-a-sketch__pixel")) return;
-
     switch (e.type) {
         case "mouseover":
-            if (e.buttons === 1) {
-                e.target.style.backgroundColor = DEFAULT_COLOR;
-                e.target.classList.add("etch-a-sketch__pixel--active");
-            } else {
-                originalColor = window.getComputedStyle(e.target).backgroundColor;
-                e.target.style.backgroundColor = DEFAULT_COLOR;
-            }
+            if (e.buttons !== 1) originalColour = e.target.style.backgroundColor;
+            e.target.style.backgroundColor = colourPicker.value;
             break;
         case "mouseout":
-            if (e.target.classList.contains("etch-a-sketch__pixel--active"))
-                return;
-            e.target.style.backgroundColor = originalColor;
+            e.target.style.backgroundColor = originalColour;
             break;
         case "mousedown":
             if (e.buttons !== 1) return;
-            e.target.style.backgroundColor = DEFAULT_COLOR;
-            e.target.classList.add("etch-a-sketch__pixel--active");
+            e.target.style.backgroundColor = colourPicker.value;
+            originalColour = e.target.style.backgroundColor;
             break;
     }
 }

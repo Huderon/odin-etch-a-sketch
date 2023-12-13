@@ -20,8 +20,9 @@ body {
 .etch-a-sketch__nav {
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    width: 100%;
+    justify-content: center;
+    width: 90vh;
+    gap: 20px;
     padding: 20px;
 }
 
