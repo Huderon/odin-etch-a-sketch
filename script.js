@@ -1,9 +1,22 @@
 const RESOLUTION = 16;
 const form = document.getElementById("controls");
 const colourPicker = form.elements["colour-picker"];
+const randomColourButton = form.elements["random-colour-button"];
 const resetButton = form.elements["reset-button"];
 const canvas = document.querySelector(".etch-a-sketch__canvas");
-resetButton.addEventListener("click", resetGrid);
+
+const pixelColours = new WeakMap();
+
+let useRandomColour = false;
+
+resetButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    resetGrid();
+});
+randomColourButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    useRandomColour = !useRandomColour;
+});
 canvas.addEventListener("mouseover", handleMouseEvents);
 canvas.addEventListener("mouseout", handleMouseEvents);
 canvas.addEventListener("mousedown", handleMouseEvents);
@@ -15,6 +28,10 @@ function createGrid(rows) {
         const pixel = document.createElement("div");
         pixel.className = "etch-a-sketch__pixel";
         pixel.style.width = `${pixelWidth}%`;
+        pixelColours.set(pixel, {
+            colour: null,
+            previewColour: null
+        });
         fragment.appendChild(pixel);
     }
     canvas.innerHTML = "";
@@ -31,21 +48,35 @@ function resetGrid() {
     createGrid(rows);
 }
 
+function getColour() {
+    if (useRandomColour) {
+        const r = Math.floor(Math.random() * 256);
+        const g = Math.floor(Math.random() * 256);
+        const b = Math.floor(Math.random() * 256);
+        return `rgb(${r}, ${g}, ${b})`;
+    }
+    return colourPicker.value;
+}
+
 function handleMouseEvents(e) {
     if (!e.target.classList.contains("etch-a-sketch__pixel")) return;
+    const pixel = e.target;
+    const pixelState = pixelColours.get(pixel);
     switch (e.type) {
         case "mouseover":
-            if (e.buttons !== 1) originalColour = e.target.style.backgroundColor;
-            e.target.style.backgroundColor = colourPicker.value;
+            pixelState.previewColour = getColour();
+            pixel.style.backgroundColor = pixelState.previewColour;
+            if (e.buttons === 1) {
+                pixelState.colour = pixelState.previewColour;
+            }
             break;
         case "mouseout":
-            e.target.style.backgroundColor = originalColour;
+            pixel.style.backgroundColor = pixelState.colour;
             break;
         case "mousedown":
-            if (e.buttons !== 1) return;
-            e.target.style.backgroundColor = colourPicker.value;
-            originalColour = e.target.style.backgroundColor;
-            break;
+            if (e.buttons === 0) return;
+            pixelState.colour = pixelState.previewColour;
+            pixel.style.backgroundColor = pixelState.colour;
     }
 }
 
