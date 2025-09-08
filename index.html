@@ -9,10 +9,16 @@
     </head>
     <body>
         <main class="etch-a-sketch">
-            <nav class="etch-a-sketch__nav">
-                <input type="color" value="#000000" class="etch-a-sketch__colour-picker">
-                <button class="etch-a-sketch__reset-button">New Grid</button>
-            </nav>
+            <form id="controls">
+                <fieldset class="control__items">
+                    <legend>Controls</legend>
+                    <div role="group" class="control__item">
+                        <label for="colour">Colour</label>
+                        <input type="color" id="colour" name="colour-picker" value="#000000" >
+                    </div>
+                    <button id="reset" name="reset-button">New Grid</button>
+                </fieldset>
+            </form>
             <div class="etch-a-sketch__canvas"></div>
         </main>
     </body>

@@ -1,6 +1,7 @@
 const RESOLUTION = 16;
-const colourPicker = document.querySelector(".etch-a-sketch__colour-picker");
-const resetButton = document.querySelector(".etch-a-sketch__reset-button");
+const form = document.getElementById("controls");
+const colourPicker = form.elements["colour-picker"];
+const resetButton = form.elements["reset-button"];
 const canvas = document.querySelector(".etch-a-sketch__canvas");
 resetButton.addEventListener("click", resetGrid);
 canvas.addEventListener("mouseover", handleMouseEvents);

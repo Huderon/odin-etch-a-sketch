@@ -17,13 +17,21 @@ body {
     height: 100vh;
 }
 
-.etch-a-sketch__nav {
+.control__items {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 90vh;
     gap: 20px;
     padding: 20px;
+}
+
+.control__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
 }
 
 .etch-a-sketch__canvas {
