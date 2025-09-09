@@ -113,6 +113,8 @@ function handleMouseEvents(e) {
             if (e.buttons === 0) return;
             pixelState.colour = pixelState.previewColour;
             pixel.style.backgroundColor = RGBAToString(pixelState.colour);
+            pixelState.previewColour = getColour(pixelState.colour);
+            pixel.style.backgroundColor = RGBAToString(pixelState.previewColour);
     }
 }
 
