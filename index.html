@@ -9,12 +9,29 @@
     </head>
     <body>
         <main class="etch-a-sketch">
-            <form id="controls">
-                <fieldset class="control__items">
+            <form id="controls" class="etch-a-sketch__controls">
+                <fieldset class="etch-a-sketch__fieldset">
                     <legend>Controls</legend>
-                    <input type="color" id="colour" name="colour-picker" value="#000000" >
-                    <button id="random-colour" name="random-colour-button">Random Colour</button>
-                    <button id="reset" name="reset-button">New Grid</button>
+                    <div class="etch-a-sketch__control-group" role="group">
+                        <label for="colour">Colour:</label>
+                        <input type="color" id="colour" class="etch-a-sketch__color-input"  name="colour-picker" value="#000000" >
+                    </div>
+                    <fieldset class="etch-a-sketch__fieldset etch-a-sketch__fieldset--column">
+                        <legend>Draw Mode</legend>
+                        <label for="static-colour">
+                            <input type="radio" id="static-colour" class="etch-a-sketch__radio" name="draw-mode" value="static" checked>
+                            Static Colour
+                        </label>
+                        <label for="random-colour">
+                            <input type="radio" id="random-colour" class="etch-a-sketch__radio" name="draw-mode" value="random">
+                            Random Colour
+                        </label>
+                        <label for="erase">
+                            <input type="radio" id="erase" class="etch-a-sketch__radio" name="draw-mode" value="erase">
+                            Erase
+                        </label>
+                    </fieldset>
+                    <button id="reset" class="etch-a-sketch__button etch-a-sketch__button--reset" name="reset-button">New Grid</button>
                 </fieldset>
             </form>
             <div class="etch-a-sketch__canvas"></div>

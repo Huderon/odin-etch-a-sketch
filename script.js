@@ -1,21 +1,15 @@
 const RESOLUTION = 16;
 const form = document.getElementById("controls");
 const colourPicker = form.elements["colour-picker"];
-const randomColourButton = form.elements["random-colour-button"];
+const drawModeRadioGroup = form.elements["draw-mode"];
 const resetButton = form.elements["reset-button"];
 const canvas = document.querySelector(".etch-a-sketch__canvas");
 
 const pixelColours = new WeakMap();
 
-let useRandomColour = false;
-
 resetButton.addEventListener("click", (e) => {
     e.preventDefault();
     resetGrid();
-});
-randomColourButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    useRandomColour = !useRandomColour;
 });
 canvas.addEventListener("mouseover", handleMouseEvents);
 canvas.addEventListener("mouseout", handleMouseEvents);
@@ -49,13 +43,19 @@ function resetGrid() {
 }
 
 function getColour() {
-    if (useRandomColour) {
-        const r = Math.floor(Math.random() * 256);
-        const g = Math.floor(Math.random() * 256);
-        const b = Math.floor(Math.random() * 256);
-        return `rgb(${r}, ${g}, ${b})`;
+    switch (drawModeRadioGroup.value) {
+        case "erase":
+            return "";
+        case "random":
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            return `rgb(${r}, ${g}, ${b})`;
+        case "static":
+            return colourPicker.value;
+        default:
+            break;
     }
-    return colourPicker.value;
 }
 
 function handleMouseEvents(e) {
